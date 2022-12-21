@@ -1,24 +1,29 @@
-const express = require('express');
-const cors = require('cors');
-// importo el ficheron json
-const movies = require('./data/movie.json') 
+const express = require("express");
+const cors = require("cors");
+const movies = require("./data/movies.json");
 
 // create and config server
-const server = express();
-server.use(cors());
-server.use(express.json());
+const server = express(); //creamos servidor, inicia el proceso de escuchar
+server.use(cors()); // configuramos el servidor para que sea una API pública, si quitamos cors será API privada
+server.use(express.json({ limit: "10Mb" })); //configuramos el servidor le decimos q vamos a trabajar con Json
 
 // init express aplication
 const serverPort = 4000;
+// asociado a la línea 5
 server.listen(serverPort, () => {
   console.log(`Server listening at http://localhost:${serverPort}`);
 });
 
-// Escribimos los endpoints que queramos
-server.get('/movies', (req, res) => {
+// endpoint
+
+server.get("/movies", (req, res) => {
   const response = {
-  success: true,
-  movies: movies
+    success: true,
+    movies: movies.movies,
   };
   res.json(response);
 });
+
+// ruta estática
+const staticServer = "./public-react";
+server.use(express.static(staticServer));
