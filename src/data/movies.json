@@ -4,19 +4,19 @@
       "id": "1",
       "title": "Gambita de dama",
       "gender": "Drama",
-      "image": "https://via.placeholder.com/150"
+      "image": "//localhost:4000/gambita.jpeg"
     },
     {
       "id": "2",
       "title": "Friends",
       "gender": "Comedia",
-      "image": "https://via.placeholder.com/150"
+      "image": "//localhost:4000/friends.jpeg"
     },
     {
       "id": "3",
       "title": "Cómo defender a un asesino",
       "gender": "Suspense",
-      "image": "https://via.placeholder.com/150"
+      "image": "//localhost:4000/como-defender-a-un-asesino.jpeg"
     }
   ]
 }
