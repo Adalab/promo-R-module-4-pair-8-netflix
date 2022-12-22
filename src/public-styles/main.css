@@ -1,0 +1,36 @@
+.card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin-right: 0.5rem;
+    margin-bottom: 0.5rem;
+    max-width: 7.5rem;
+    border-radius: 0.5rem;
+    background-color: white;
+    border: 0.1875rem solid #14d9c4;
+    overflow: hidden;
+    transition: 0.25s all;
+    
+}
+
+.card__img {
+    width: 100%;
+}
+
+.card__title {
+    display: block;
+    margin: 0;
+    padding: 0.3rem 1rem;
+    font-size: 1rem;
+}
+
+.card__description {
+    display: block;
+    margin: 0;
+    padding: 0.3rem 1rem;
+    font-size: 0.8rem;
+}
+
+.hola {
+    background-color: fuchsia;
+}
