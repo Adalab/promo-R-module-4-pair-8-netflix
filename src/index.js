@@ -18,7 +18,7 @@ server.listen(serverPort, () => {
 // endpoint
 
 server.get("/movies", (req, res) => {
-  
+
   const response = {
     success: true,
     movies: movies.movies,
@@ -31,14 +31,36 @@ server.get("/movies", (req, res) => {
 
 // endpoint login
 server.post("/login", (req, res) => {
-  const response = {
-    success: true,
-    users: users,
-  };
-  console.log(req.body);
-  res.json(response);
+  const email = req.body.email
+  const password = req.body.password
+  const dataLogin = users.find((element) =>
+    element.email.toLowerCase() === email.toLowerCase() && element.password === password);
+  if (dataLogin) {
+    res.json({
+      success: true,
+      userId: "id_de_la_usuaria_encontrada"
+    });
+  } else {
+    res.json({
+      succes: false,
+      errorMessage: "Usuaria no encontrada",
+    })
+  }
+  // const response = {
+
+  //   success: true,
+  //   users: users,
+  // };
+  // console.log(req.body);
+  // res.json(response);
 });
 
+server.get('/movies/:movieId', (req, res) => {
+  console.log('Url params:', req.params)
+
+  console.log('Url param movieId:', req.params.movieId)
+
+});
 
 // ruta estática
 const staticServer = "./src/public-react";
