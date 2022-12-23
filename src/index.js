@@ -80,7 +80,7 @@ app.get("/es/film:filmId.html", (req, res) => {
 });
 */
 // importación de base de datos
-// AQUÍ BASES DE DATOS I PUNTO DOS 
+// AQUÍ BASES DE DATOS I PUNTO TRES 
 const db = new Database('./src/db/database.db', { verbose: console.log })
 
 // ruta estática
