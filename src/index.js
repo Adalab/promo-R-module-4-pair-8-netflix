@@ -1,7 +1,9 @@
 const express = require("express");
 const cors = require("cors");
 const movies = require("./data/movies.json");
-const users = require("./data/users.json")
+const users = require("./data/users.json");
+const Database = require("better-sqlite3");
+
 
 // create and config server
 const server = express(); //creamos servidor, inicia el proceso de escuchar
@@ -77,7 +79,9 @@ app.get("/es/film:filmId.html", (req, res) => {
   }
 });
 */
-
+// importación de base de datos
+// AQUÍ BASES DE DATOS I PUNTO DOS 
+const db = new Database('./src/db/database.db', { verbose: console.log })
 
 // ruta estática
 const staticServer = "./src/public-react";
@@ -87,7 +91,7 @@ const staticServerImage = "./src/public-movies-images";
 server.use(express.static(staticServerImage));
 
 
-const staticServerCss = "./src/public-styles";
+const staticServerCss = "./src/public-styles/css";
 server.use(express.static(staticServerCss));
 
 
