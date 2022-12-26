@@ -3,7 +3,10 @@ const cors = require("cors");
 const movies = require("./data/movies.json");
 const users = require("./data/users.json");
 const Database = require("better-sqlite3");
+// importación de base de datos
+// AQUÍ BASES DE DATOS I PUNTO TRES 
 
+const db = new Database('./src/db/database.db', { verbose: console.log })
 
 // create and config server
 const server = express(); //creamos servidor, inicia el proceso de escuchar
@@ -21,14 +24,41 @@ server.listen(serverPort, () => {
 // endpoint
 
 server.get("/movies", (req, res) => {
-
+  //Preparamos la query.
+  const query = db.prepare(' SELECT * FROM movies ');  // Select * = seleccionamos todas las columnas de la tabla.Movies es el nombre de nuestra tabla
+  //Ejecutamos la query
+  const list = query.all(); //devuelve varios registros gracias al ALL
+  // console.log(list);
+  console.log(req.query);
+  const genderFilterParam = req.query.gender;
+  const sortFilterParam = req.query.sort;
+  const filteredMovieGender = list
+    .filter((movie) =>
+      movie.gender.includes(genderFilterParam)
+    )
+  // .sort((a, b) => (a.name > b.name ? 1 : a.name < b.name ? -1 : 0));
+  // sortFilterParam.sort(function (a, b) {
+  //   if (a.name > b.name) {
+  //     return 1;
+  //   }
+  //   if (a.name < b.name) {
+  //     return -1;
+  //   }
+  //   // a must be equal to b
+  //   return 0;
+  // });
 
   const response = {
     success: true,
-    movies: movies.movies,
+    // movies: list,
+    movies: filteredMovieGender,
+    // movies: filteredMovieGender,// metemos todo lo que nos devuelve el filter
+    // movies: movies.movies// Este era nuestro json antes de utilizar el servidor de datos
   };
   res.json(response);
+
 });
+// Forma antigua de ejecutar línea 36
 // El primer movies es la constante que elegimos entre back y front, 
 // el segundo, es la constante que hemos importado arriba
 // el tercero, es para acceder al array de objetos
@@ -79,9 +109,6 @@ app.get("/es/film:filmId.html", (req, res) => {
   }
 });
 */
-// importación de base de datos
-// AQUÍ BASES DE DATOS I PUNTO TRES 
-const db = new Database('./src/db/database.db', { verbose: console.log })
 
 // ruta estática
 const staticServer = "./src/public-react";

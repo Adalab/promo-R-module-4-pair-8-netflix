@@ -11,10 +11,12 @@ import SignUp from './SignUp';
 import apiMovies from '../services/api-movies';
 import apiUser from '../services/api-user';
 import router from '../services/router';
+import ls from "../services/local-storage";
 
 const App = () => {
   // state: user
-  const [userId, setUserId] = useState('');
+
+  const [userId, setUserId] = useState(ls.get("userIdLs", ""));
   const [userName, setUserName] = useState('');
   const [userEmail, setUserEmail] = useState('');
   const [userPassword, setUserPassword] = useState('');
@@ -41,6 +43,7 @@ const App = () => {
     };
     apiMovies.getMoviesFromApi(params).then(response => {
       setAppMovies(response.movies);
+      console.log(params);
     });
   }, [allMoviesOptionGender, allMoviesOptionSort]);
 
@@ -71,6 +74,13 @@ const App = () => {
       });
     }
   }, [userId]);
+
+  useEffect(() => {
+    ls.set("userIdLs", userId);
+  }, [userId]);
+
+
+
 
   /*
   Event: enviar datos del login al API.
