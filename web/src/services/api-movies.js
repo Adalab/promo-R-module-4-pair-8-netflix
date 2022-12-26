@@ -1,19 +1,24 @@
 // login
 
-const getMoviesFromApi = () => {
-  console.log('Se están pidiendo las películas de la app');
+const getMoviesFromApi = (params) => {
+  console.log("Se están pidiendo las películas de la app");
+
+  // const queryParams = `?genderMovie=${inputName.value}&userEmail=${inputEmail.value}`;
   // CAMBIA ESTE FETCH PARA QUE APUNTE A UN ENDPOINT DE TU SERVIDOR, PIENSA SI DEBE SER GET O POST, PIENSA QUÉ DATOS DEBES ENVIAR, ETC
-  return fetch('http://localhost:4000/movies', {
-    method: 'GET', // por defecto es get, no es necesario ponerlo
-  })
-    .then(response => response.json())
-    .then(data => {
+  return fetch(
+    `http://localhost:4000/movies?gender=${params.gender}&sort=${params.sort}`,
+    {
+      method: "GET", // por defecto es get, no es necesario ponerlo
+    }
+  )
+    .then((response) => response.json())
+    .then((data) => {
       return data;
     });
 };
 
 const objToExport = {
-  getMoviesFromApi: getMoviesFromApi
+  getMoviesFromApi: getMoviesFromApi,
 };
 
 export default objToExport;
