@@ -7,7 +7,7 @@ const Database = require("better-sqlite3");
 // AQUÍ BASES DE DATOS I PUNTO TRES 
 
 const db = new Database('./src/db/database.db', { verbose: console.log })
-
+const dbUser = new Database('./src/db/users.db', { verbose: console.log })
 // create and config server
 const server = express(); //creamos servidor, inicia el proceso de escuchar
 server.use(cors()); // configuramos el servidor para que sea una API pública, si quitamos cors será API privada
@@ -21,7 +21,9 @@ server.listen(serverPort, () => {
   console.log(`Server listening at http://localhost:${serverPort}`);
 });
 
-// endpoint
+
+
+
 
 server.get("/movies", (req, res) => {
   //Preparamos la query.
@@ -80,6 +82,33 @@ server.post("/login", (req, res) => {
       errorMessage: "Usuaria no encontrada",
     })
   }
+});
+//endpoint nueva usuaria
+server.post("/sign-up", (req, res) => {
+  const email = req.body.email
+  const password = req.body.password
+  const query = dbUser.prepare(' INSERT INTO users (email, password) VALUES (?, ?)  ');
+  const result = query.run(email, password);
+  console.log(result)
+  // res.json(result);
+  // res.json({
+  //   "success": true,
+  //   "userId": "nuevo-id-añadido"
+  // })
+
+  // const dataLogin = users.find((element) =>
+  //   element.email.toLowerCase() === email.toLowerCase() && element.password === password);
+  // if (dataLogin) {
+  //   res.json({
+  //     success: true,
+  //     userId: "id_de_la_usuaria_encontrada"
+  //   });
+  // } else {
+  //   res.json({
+  //     succes: false,
+  //     errorMessage: "Usuaria no encontrada",
+  //   })
+  // }
 });
 
 // :movieID = esto es igual a URL params que en web se ve como /(movieID)=nº de ID ejemplo: movies/1
