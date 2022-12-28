@@ -43,7 +43,7 @@ const App = () => {
     };
     apiMovies.getMoviesFromApi(params).then(response => {
       setAppMovies(response.movies);
-      console.log(params);
+      
     });
   }, [allMoviesOptionGender, allMoviesOptionSort]);
 
@@ -75,6 +75,7 @@ const App = () => {
     }
   }, [userId]);
 
+  // Para mantener a la usuaria logueada
   useEffect(() => {
     ls.set("userIdLs", userId);
   }, [userId]);
